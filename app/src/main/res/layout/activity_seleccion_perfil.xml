@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tituloSeleccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Selecciona tu perfil"
+        android:textColor="#800000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Lista de perfiles -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPerfiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <!-- Texto cuando no hay perfiles -->
+    <TextView
+        android:id="@+id/textoSinPerfiles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Aún no tienes perfiles registrados."
+        android:textColor="#800000"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <!-- Botón para crear perfil -->
+    <Button
+        android:id="@+id/btnCrearPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="24dp"
+        android:backgroundTint="#FFD700"
+        android:text="Crear nuevo perfil"
+        android:textColor="#800000"
+        android:textStyle="bold" />
+</LinearLayout>
