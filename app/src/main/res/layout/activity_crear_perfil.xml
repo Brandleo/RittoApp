@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/imgSeleccionada"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher_foreground"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/inputNombre"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:hint="Nombre del perfil"
+        android:inputType="textPersonName"
+
+        />
+    <EditText
+        android:id="@+id/inputPin"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:hint="PIN (4 dígitos)"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:layout_marginTop="12dp"/>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Perfil"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

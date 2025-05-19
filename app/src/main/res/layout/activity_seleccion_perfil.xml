@@ -50,5 +50,6 @@
         android:backgroundTint="#FFD700"
         android:text="Crear nuevo perfil"
         android:textColor="#800000"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="crearperfil"/>
 </LinearLayout>
