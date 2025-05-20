@@ -26,6 +26,7 @@
         <activity android:name=".CrearPerfil" android:exported="false" />
         <activity android:name=".IngresoPin" android:exported="false" />
         <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".DetalleAlcanciaActivity" android:exported="false" />
 
 
 

@@ -10,11 +10,24 @@
         android:layout_height="62dp"
         android:hint="Nombre de la alcancía" />
 
+    <Spinner
+        android:id="@+id/spinnerIcono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
+
     <EditText
         android:id="@+id/inputCantidadInicial"
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:hint="Cantidad inicial"
         android:inputType="numberDecimal"
+        android:layout_marginTop="12dp"/>
+
+    <CheckBox
+        android:id="@+id/checkSellada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Está sellada?"
         android:layout_marginTop="12dp"/>
 </LinearLayout>

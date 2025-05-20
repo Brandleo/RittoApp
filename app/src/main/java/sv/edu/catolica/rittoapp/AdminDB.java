@@ -31,7 +31,9 @@ public class AdminDB extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre TEXT, " +
                 "cantidad REAL, " +
-                "perfil_nombre TEXT)";
+                "perfil_nombre TEXT," +
+                "icono TEXT, " +
+                "sellada INTEGER)";
         db.execSQL(crearTablaAlcancia);
 
     }
@@ -89,12 +91,14 @@ public class AdminDB extends SQLiteOpenHelper {
     }
 
     ////////////////////alcancia
-    public void agregarAlcancia(String nombre, double cantidad, String perfilNombre) {
+    public void agregarAlcancia(String nombre, double cantidad, String perfilNombre, String icono, boolean sellada) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("nombre", nombre);
         values.put("cantidad", cantidad);
         values.put("perfil_nombre", perfilNombre);
+        values.put("icono", icono);
+        values.put("sellada", sellada ? 1 : 0);
         db.insert("alcancia", null, values);
         db.close();
     }
@@ -106,16 +110,20 @@ public class AdminDB extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM alcancia WHERE perfil_nombre = ?", new String[]{perfilNombre});
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(0);
-                String nombre = cursor.getString(1);
-                double cantidad = cursor.getDouble(2);
-                lista.add(new Alcancia(id, nombre, cantidad));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
+                double cantidad = cursor.getDouble(cursor.getColumnIndexOrThrow("cantidad"));
+                String icono = cursor.getString(cursor.getColumnIndexOrThrow("icono"));
+                boolean sellada = cursor.getInt(cursor.getColumnIndexOrThrow("sellada")) == 1;
+
+                lista.add(new Alcancia(id, nombre, cantidad, icono, sellada));
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         return lista;
     }
+
 
 
 }
