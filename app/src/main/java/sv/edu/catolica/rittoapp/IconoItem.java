@@ -17,6 +17,11 @@ public class IconoItem {
         return recursoDrawable;
     }
 
+    // Alias para compatibilidad
+    public int getResId() {
+        return recursoDrawable;
+    }
+
     @Override
     public String toString() {
         return nombre; // importante para guardar solo el nombre si lo necesitas

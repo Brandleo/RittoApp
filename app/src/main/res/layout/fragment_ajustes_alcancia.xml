@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cambiar avatar de alcancía"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/imgIconoAlcancia"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Icono de alcancía" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnAnteriorIcono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="←" />
+
+            <Button
+                android:id="@+id/btnSiguienteIcono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="→" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/inputNuevoNombreAlcancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cambiar nombre de alcancía"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnGuardarCambiosAlcancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar cambios"
+            android:layout_marginBottom="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnVaciarAlcancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vaciar alcancía"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnBorrarAlcancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Borrar alcancía" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

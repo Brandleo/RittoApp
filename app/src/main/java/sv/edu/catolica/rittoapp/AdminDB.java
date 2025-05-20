@@ -145,6 +145,56 @@ public class AdminDB extends SQLiteOpenHelper {
         db.close();
     }
 
+//////////////////////////////////////////////////// ajustes alcancia
+// Vaciar alcancía
+public void vaciarAlcancia(int id) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("cantidad", 0);
+    db.update("alcancia", values, "id = ?", new String[]{String.valueOf(id)});
+    db.close();
+}
+
+    // Borrar alcancía
+    public void borrarAlcancia(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("alcancia", "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    // Actualizar nombre e icono
+
+    public void actualizarAlcanciaCantidad(String nombreAlcancia, double nuevaCantidad) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("cantidad", nuevaCantidad);
+        db.update("alcancia", values, "nombre = ?", new String[]{nombreAlcancia});
+        db.close();
+    }
+
+
+    public void actualizarAlcancia(String nombreOriginal, String nuevoNombre, String nuevoIcono) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", nuevoNombre);
+        values.put("icono", nuevoIcono);
+        db.update("alcancia", values, "nombre = ?", new String[]{nombreOriginal});
+        db.close();
+    }
+
+    public void vaciarAlcancia(String nombre) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("cantidad", 0.0);
+        db.update("alcancia", values, "nombre = ?", new String[]{nombre});
+        db.close();
+    }
+
+    public void eliminarAlcancia(String nombre) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("alcancia", "nombre = ?", new String[]{nombre});
+        db.close();
+    }
 
 
 
