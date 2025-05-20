@@ -1,7 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.RittoApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.RittoApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colores para el tema oscuro -->
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOutline">@color/outline_dark</item>
+        <item name="colorPrimary">@color/teal_200</item>
+    </style>
+
+    <style name="Theme.RittoApp.Dialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="android:windowBackground">@drawable/bg_dialogo_redondo_night</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButton</item>
     </style>
 </resources>

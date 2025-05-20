@@ -1,33 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:text="Nuevo Icono"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/imgIconoActual"
+        android:layout_width="103dp"
+        android:layout_height="91dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerInside" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnIconoAnterior"
+            android:text="←"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnIconoSiguiente"
+            android:text="→"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/inputNombreAlcancia"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="12dp"
         android:hint="Nombre de la alcancía" />
-
-    <Spinner
-        android:id="@+id/spinnerIcono"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
 
     <EditText
         android:id="@+id/inputCantidadInicial"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="12dp"
         android:hint="Cantidad inicial"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="12dp"/>
+        android:inputType="numberDecimal" />
 
     <CheckBox
         android:id="@+id/checkSellada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="¿Está sellada?"
-        android:layout_marginTop="12dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
