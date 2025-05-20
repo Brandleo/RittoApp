@@ -123,6 +123,29 @@ public class AdminDB extends SQLiteOpenHelper {
         db.close();
         return lista;
     }
+    public Perfil obtenerPerfilPorNombre(String nombre) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nombre, imagenUri, pin FROM perfil WHERE nombre = ?", new String[]{nombre});
+        Perfil perfil = null;
+        if (cursor.moveToFirst()) {
+            perfil = new Perfil(cursor.getString(0), cursor.getString(1), cursor.getString(2));
+        }
+        cursor.close();
+        db.close();
+        return perfil;
+    }
+
+    public void actualizarPerfil(String nombreOriginal, String nuevoNombre, String nuevaImagenUri, String nuevoPin) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", nuevoNombre);
+        values.put("imagenUri", nuevaImagenUri);
+        values.put("pin", nuevoPin);
+        db.update("perfil", values, "nombre = ?", new String[]{nombreOriginal});
+        db.close();
+    }
+
+
 
 
 
