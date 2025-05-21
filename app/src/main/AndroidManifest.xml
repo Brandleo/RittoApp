@@ -28,6 +28,8 @@
         <activity android:name=".HomeActivity" android:exported="false" />
         <activity android:name=".DetalleAlcanciaActivity" android:exported="false" />
         <activity android:name=".DepositoActivity" android:exported="false" />
+        <activity android:name=".RetiroActivity" android:exported="false" />
+
 
 
 

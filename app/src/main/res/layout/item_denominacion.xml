@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
@@ -23,15 +24,20 @@
         android:text="$1.00"
         android:textSize="16sp"
         android:textColor="?android:textColorPrimary" />
-
-    <Button
+    <!-- Botón Restar (-) -->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRestar"
         android:layout_width="48dp"
         android:layout_height="40dp"
         android:text="−"
-        android:textSize="18sp"
-        android:layout_marginEnd="4dp" />
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/teal_700"
+        android:background="@drawable/bg_dialogo_redondo"
+        android:layout_marginEnd="4dp"
+      />
 
+    <!-- Texto Cantidad -->
     <TextView
         android:id="@+id/txtCantidad"
         android:layout_width="40dp"
@@ -42,11 +48,18 @@
         android:textColor="?android:textColorPrimary"
         android:background="@drawable/bg_dialogo_redondo" />
 
-    <Button
+    <!-- Botón Sumar (+) -->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSumar"
         android:layout_width="48dp"
         android:layout_height="40dp"
         android:text="+"
-        android:textSize="18sp"
-        android:layout_marginStart="4dp" />
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/teal_700"
+        android:background="@drawable/bg_dialogo_redondo"
+        android:layout_marginStart="4dp"
+       />
+
+
 </LinearLayout>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -35,19 +36,47 @@
             android:layout_height="wrap_content"
             android:text="Total"
             android:textSize="16sp"
+            android:layout_marginBottom="24dp"
             android:textColor="?android:textColorPrimary" />
-    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/btnDepositarDinero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/mas"
-    android:contentDescription="Agregar dinero"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_margin="24dp"
-    android:backgroundTint="@color/teal_700"
-    android:background="@drawable/bg_dialogo_redondo"
-    app:tint="@android:color/white" />
+        <!-- Contenedor HORIZONTAL para botones -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <!-- Botón Retirar (izquierda) -->
+
+            <ImageButton
+                android:id="@+id/btnRetirarDinero"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_white_bg_green_stroke"
+                android:clickable="true"
+                android:contentDescription="Retirar dinero"
+                android:focusable="true"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/menos"
+                app:tint="@android:color/white"
+                android:layout_marginEnd="32dp"/>
+
+            <ImageButton
+                android:id="@+id/btnDepositarDinero"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_white_bg_green_stroke"
+                android:clickable="true"
+                android:contentDescription="Agregar dinero"
+                android:focusable="true"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/mas"
+                app:tint="@android:color/white"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

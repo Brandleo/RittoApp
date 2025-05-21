@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,21 @@ public class AhorrosAlcanciaFragment extends Fragment {
             int resId = requireContext().getResources().getIdentifier(icono, "drawable", requireContext().getPackageName());
             imgIcono.setImageResource(resId != 0 ? resId : R.drawable.tunco);
         }
+        ImageButton btnRetirar = vista.findViewById(R.id.btnRetirarDinero);
+        btnRetirar.setOnClickListener(v -> {
+            if (sellada) {
+                Toast.makeText(getContext(), "Esta alcancía está sellada y no permite retiros", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Intent intent = new Intent(getContext(), RetiroActivity.class);
+            intent.putExtra("id", idAlcancia);
+            intent.putExtra("nombre", nombre);
+            intent.putExtra("icono", icono);
+            intent.putExtra("sellada", sellada);
+            startActivity(intent);
+        });
+
 
         btnDepositar.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), DepositoActivity.class);
