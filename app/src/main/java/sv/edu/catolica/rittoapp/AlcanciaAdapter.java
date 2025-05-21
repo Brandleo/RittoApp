@@ -59,11 +59,14 @@ public class AlcanciaAdapter extends RecyclerView.Adapter<AlcanciaAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), DetalleAlcanciaActivity.class);
+            intent.putExtra("id", alcancia.getId()); // 🔄 Añadido ID
             intent.putExtra("nombre", alcancia.getNombre());
             intent.putExtra("cantidad", alcancia.getCantidad());
             intent.putExtra("icono", alcancia.getIcono());
+            intent.putExtra("sellada", alcancia.isSellada());
             v.getContext().startActivity(intent);
         });
+
     }
 
     @Override

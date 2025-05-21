@@ -20,23 +20,32 @@ public class AdminDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Crear tabla perfil
-        String crearTablaPerfil = "CREATE TABLE perfil (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nombre TEXT NOT NULL, " +
-                "imagenUri TEXT, " +
-                "pin TEXT)";
-        db.execSQL(crearTablaPerfil);
-        String crearTablaAlcancia = "CREATE TABLE alcancia (" +
+        db.execSQL("CREATE TABLE perfil (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, imagenUri TEXT, pin TEXT)");
+
+        db.execSQL("CREATE TABLE alcancia (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre TEXT, " +
                 "cantidad REAL, " +
                 "perfil_nombre TEXT," +
                 "icono TEXT, " +
-                "sellada INTEGER)";
-        db.execSQL(crearTablaAlcancia);
+                "sellada INTEGER)");
 
+        db.execSQL("CREATE TABLE movimiento (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id_alcancia INTEGER, " +
+                "tipo TEXT, " + // 'deposito' o 'retiro'
+                "fecha TEXT, " + // formato ISO8601
+                "monto_total REAL, " +
+                "FOREIGN KEY(id_alcancia) REFERENCES alcancia(id))");
+
+        db.execSQL("CREATE TABLE detalle_movimiento (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id_movimiento INTEGER, " +
+                "denominacion REAL, " +
+                "cantidad INTEGER, " +
+                "FOREIGN KEY(id_movimiento) REFERENCES movimiento(id))");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -195,6 +204,115 @@ public void vaciarAlcancia(int id) {
         db.delete("alcancia", "nombre = ?", new String[]{nombre});
         db.close();
     }
+
+    // Insertar movimiento principal y detalles
+    public void registrarMovimiento(int idAlcancia, String tipo, String fecha, double montoTotal, List<DenominacionCantidad> detalles) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("id_alcancia", idAlcancia);
+            values.put("tipo", tipo);
+            values.put("fecha", fecha);
+            values.put("monto_total", montoTotal);
+
+            long idMovimiento = db.insert("movimiento", null, values);
+
+            for (DenominacionCantidad d : detalles) {
+                ContentValues detalleValues = new ContentValues();
+                detalleValues.put("id_movimiento", idMovimiento);
+                detalleValues.put("denominacion", d.getDenominacion());
+                detalleValues.put("cantidad", d.getCantidad());
+                db.insert("detalle_movimiento", null, detalleValues);
+            }
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
+    // Obtener movimientos por alcancía
+    public List<Movimiento> obtenerMovimientosDeAlcancia(int idAlcancia) {
+        List<Movimiento> lista = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM movimiento WHERE id_alcancia = ? ORDER BY fecha DESC", new String[]{String.valueOf(idAlcancia)});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String tipo = cursor.getString(cursor.getColumnIndexOrThrow("tipo"));
+                String fecha = cursor.getString(cursor.getColumnIndexOrThrow("fecha"));
+                double monto = cursor.getDouble(cursor.getColumnIndexOrThrow("monto_total"));
+                lista.add(new Movimiento(id, idAlcancia, tipo, fecha, monto));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return lista;
+    }
+
+    // Obtener detalles de un movimiento
+    public List<DenominacionCantidad> obtenerDetallesDeMovimiento(int idMovimiento) {
+        List<DenominacionCantidad> detalles = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT denominacion, cantidad FROM detalle_movimiento WHERE id_movimiento = ?", new String[]{String.valueOf(idMovimiento)});
+        if (cursor.moveToFirst()) {
+            do {
+                double denom = cursor.getDouble(cursor.getColumnIndexOrThrow("denominacion"));
+                int cant = cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"));
+                detalles.add(new DenominacionCantidad(denom, cant));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return detalles;
+    }
+    // Insertar movimiento principal (retorna ID)
+    public long insertarMovimiento(int idAlcancia, String tipo, String fechaHora, double total) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id_alcancia", idAlcancia);
+        values.put("tipo", tipo); // "deposito" o "retiro"
+        values.put("fecha_hora", fechaHora);
+        values.put("total", total);
+        long idMovimiento = db.insert("movimiento", null, values);
+        db.close();
+        return idMovimiento;
+    }
+
+    // Insertar detalles del movimiento (denominaciones)
+    public void insertarDetalleMovimiento(long idMovimiento, String denominacion, int cantidad) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id_movimiento", idMovimiento);
+        values.put("denominacion", denominacion);
+        values.put("cantidad", cantidad);
+        db.insert("detalle_movimiento", null, values);
+        db.close();
+    }
+    public double obtenerCantidadActual(int idAlcancia) {
+        double cantidad = 0.0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT cantidad FROM alcancia WHERE id = ?", new String[]{String.valueOf(idAlcancia)});
+        if (cursor.moveToFirst()) {
+            cantidad = cursor.getDouble(0);
+        }
+        cursor.close();
+        db.close();
+        return cantidad;
+    }
+    public void actualizarAlcanciaCantidadPorId(int idAlcancia, double nuevaCantidad) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("cantidad", nuevaCantidad);
+        db.update("alcancia", values, "id = ?", new String[]{String.valueOf(idAlcancia)});
+        db.close();
+    }
+
+
+
+
 
 
 

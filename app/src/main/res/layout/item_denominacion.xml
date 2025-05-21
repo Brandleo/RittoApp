@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imgDenominacion"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="Imagen de denominación" />
+
+    <TextView
+        android:id="@+id/txtValorDenominacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="$1.00"
+        android:textSize="16sp"
+        android:textColor="?android:textColorPrimary" />
+
+    <Button
+        android:id="@+id/btnRestar"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:text="−"
+        android:textSize="18sp"
+        android:layout_marginEnd="4dp" />
+
+    <TextView
+        android:id="@+id/txtCantidad"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
+        android:background="@drawable/bg_dialogo_redondo" />
+
+    <Button
+        android:id="@+id/btnSumar"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:text="+"
+        android:textSize="18sp"
+        android:layout_marginStart="4dp" />
+</LinearLayout>

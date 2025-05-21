@@ -27,6 +27,7 @@
         <activity android:name=".IngresoPin" android:exported="false" />
         <activity android:name=".HomeActivity" android:exported="false" />
         <activity android:name=".DetalleAlcanciaActivity" android:exported="false" />
+        <activity android:name=".DepositoActivity" android:exported="false" />
 
 
 
