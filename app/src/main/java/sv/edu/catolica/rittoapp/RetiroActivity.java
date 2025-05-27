@@ -1,8 +1,11 @@
 package sv.edu.catolica.rittoapp;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +33,7 @@ public class RetiroActivity extends AppCompatActivity {
 
     private final double[] denominaciones = {
             0.01, 0.05, 0.10, 0.25, 0.50, 1.00,
-            2.00, 5.00, 10.00, 20.00
+            2.00, 5.00, 10.00, 20.00,50.00,100.00
     };
 
     @Override
@@ -63,18 +66,39 @@ public class RetiroActivity extends AppCompatActivity {
         for (double valor : denominaciones) {
             View fila = getLayoutInflater().inflate(R.layout.item_denominacion, null);
             TextView txtValor = fila.findViewById(R.id.txtValorDenominacion);
-            TextView txtCantidad = fila.findViewById(R.id.txtCantidad);
+            EditText txtCantidad = fila.findViewById(R.id.txtCantidad);
             Button btnMas = fila.findViewById(R.id.btnSumar);
             Button btnMenos = fila.findViewById(R.id.btnRestar);
 
             txtValor.setText(String.format(Locale.US, "$%.2f", valor));
             txtCantidad.setText("0");
 
+            txtCantidad.setOnFocusChangeListener((view, hasFocus) -> {
+                if (hasFocus && txtCantidad.getText().toString().equals("0")) {
+                    txtCantidad.setText("");
+                }
+            });
+
+            txtCantidad.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        int cantidad = Integer.parseInt(s.toString());
+                        conteo.put(valor, cantidad);
+                    } catch (NumberFormatException e) {
+                        conteo.put(valor, 0);
+                    }
+                    calcularTotal();
+                }
+            });
+
             btnMas.setOnClickListener(v -> {
                 int actual = conteo.get(valor);
                 conteo.put(valor, actual + 1);
                 txtCantidad.setText(String.valueOf(actual + 1));
-                calcularTotal();
             });
 
             btnMenos.setOnClickListener(v -> {
@@ -82,7 +106,6 @@ public class RetiroActivity extends AppCompatActivity {
                 if (actual > 0) {
                     conteo.put(valor, actual - 1);
                     txtCantidad.setText(String.valueOf(actual - 1));
-                    calcularTotal();
                 }
             });
 
@@ -106,7 +129,7 @@ public class RetiroActivity extends AppCompatActivity {
                 return;
             }
 
-            // 🔒 Validar si hay suficientes monedas/billetes disponibles por denominación
+            // Validar stock disponible por denominación
             HashMap<Double, Integer> stockActual = DenominacionStockHelper.obtenerStockDeDenominaciones(db, idAlcancia);
 
             for (double denom : conteo.keySet()) {
@@ -118,7 +141,6 @@ public class RetiroActivity extends AppCompatActivity {
                 }
             }
 
-            // 🧮 Actualizar alcancía
             db.actualizarAlcanciaCantidadPorId(idAlcancia, actual - total);
 
             String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
@@ -134,7 +156,6 @@ public class RetiroActivity extends AppCompatActivity {
             Toast.makeText(this, "Retiro registrado", Toast.LENGTH_SHORT).show();
             finish();
         });
-
     }
 
     private void calcularTotal() {
@@ -144,5 +165,4 @@ public class RetiroActivity extends AppCompatActivity {
         }
         txtTotal.setText(String.format(Locale.US, "Total: $%.2f", total));
     }
-
 }

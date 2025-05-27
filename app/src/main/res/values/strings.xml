@@ -2,7 +2,7 @@
     <string name="app_name">RittoApp</string>
     <string-array name="filtro_tipos">
         <item>Todos</item>
-        <item>Depósito</item>
+        <item>Deposito</item>
         <item>Retiro</item>
     </string-array>
 

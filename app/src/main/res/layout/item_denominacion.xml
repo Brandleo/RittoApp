@@ -27,32 +27,36 @@
     <!-- Botón Restar (-) -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRestar"
-        android:layout_width="48dp"
-        android:layout_height="40dp"
-        android:text="−"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@color/teal_700"
-        android:background="@drawable/bg_dialogo_redondo"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-      />
+        android:background="@drawable/bg_dialogo_redondo"
+        android:backgroundTint="@color/teal_700"
+        android:text="−"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
     <!-- Texto Cantidad -->
-    <TextView
+    <EditText
         android:id="@+id/txtCantidad"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="0"
         android:textSize="16sp"
+        android:inputType="number"
         android:textColor="?android:textColorPrimary"
-        android:background="@drawable/bg_dialogo_redondo" />
+        android:background="@drawable/bg_dialogo_redondo"
+        android:maxLength="4"
+        android:padding="0dp"
+        />
+
 
     <!-- Botón Sumar (+) -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSumar"
-        android:layout_width="48dp"
-        android:layout_height="40dp"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
         android:text="+"
         android:textSize="24sp"
         android:textColor="@android:color/white"

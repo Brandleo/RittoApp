@@ -9,7 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class DetalleAlcanciaActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,17 +18,19 @@ public class DetalleAlcanciaActivity extends AppCompatActivity {
 
         // Obtener datos enviados desde la alcancía seleccionada
         Bundle datosAlcancia = new Bundle();
-        datosAlcancia.putInt("id", getIntent().getIntExtra("id", -1)); // ESTE ES CLAVE
+        datosAlcancia.putInt("id", getIntent().getIntExtra("id", -1));
         datosAlcancia.putString("nombre", getIntent().getStringExtra("nombre"));
         datosAlcancia.putDouble("cantidad", getIntent().getDoubleExtra("cantidad", 0));
         datosAlcancia.putString("icono", getIntent().getStringExtra("icono"));
         datosAlcancia.putBoolean("sellada", getIntent().getBooleanExtra("sellada", false));
 
-
-        // Fragmento inicial: Ahorros
+        // Fragmento inicial
         Fragment fragInicial = new AhorrosAlcanciaFragment();
         fragInicial.setArguments(datosAlcancia);
         cargarFragmento(fragInicial);
+
+        // ✅ Establecer ítem seleccionado en el menú
+        bottomNav.setSelectedItemId(R.id.nav_ahorros);
 
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
@@ -58,6 +59,7 @@ public class DetalleAlcanciaActivity extends AppCompatActivity {
             return false;
         });
     }
+
 
     private void cargarFragmento(Fragment fragmento) {
         getSupportFragmentManager()

@@ -1,9 +1,12 @@
 package sv.edu.catolica.rittoapp;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +34,7 @@ public class DepositoActivity extends AppCompatActivity {
 
     private final double[] denominaciones = {
             0.01, 0.05, 0.10, 0.25, 0.50, 1.00,
-            2.00, 5.00, 10.00, 20.00
+            2.00, 5.00, 10.00, 20.00,50.00,100.00
     };
 
     @Override
@@ -65,7 +68,7 @@ public class DepositoActivity extends AppCompatActivity {
 
             View fila = getLayoutInflater().inflate(R.layout.item_denominacion, null);
             TextView txtValor = fila.findViewById(R.id.txtValorDenominacion);
-            TextView txtCantidad = fila.findViewById(R.id.txtCantidad);
+            EditText txtCantidad = fila.findViewById(R.id.txtCantidad);
             Button btnMas = fila.findViewById(R.id.btnSumar);
             Button btnMenos = fila.findViewById(R.id.btnRestar);
 
@@ -88,13 +91,35 @@ public class DepositoActivity extends AppCompatActivity {
                 }
             });
 
+            txtCantidad.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus && txtCantidad.getText().toString().equals("0")) {
+                    txtCantidad.setText("");
+                }
+            });
+
+            txtCantidad.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        int cantidad = Integer.parseInt(s.toString());
+                        conteo.put(valor, cantidad);
+                    } catch (NumberFormatException e) {
+                        conteo.put(valor, 0);
+                    }
+                    calcularTotal();
+                }
+            });
+
             contenedorDenominaciones.addView(fila);
         }
+
         btnConfirmar.setOnClickListener(v -> {
             if (idAlcancia != -1 && total > 0.00) {
                 double actual = db.obtenerCantidadActual(idAlcancia);
 
-                // Verifica que sí obtenemos cantidad actual
                 Log.d("Deposito", "ID: " + idAlcancia + ", actual: " + actual + ", total: " + total);
 
                 db.actualizarAlcanciaCantidadPorId(idAlcancia, actual + total);
@@ -110,12 +135,11 @@ public class DepositoActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(this, "✅ Depósito guardado", Toast.LENGTH_SHORT).show();
-                finish(); // ⬅ Regresa
+                finish();
             } else {
                 Toast.makeText(this, "⚠️ Error: asegúrate de ingresar una cantidad válida", Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     private void calcularTotal() {
