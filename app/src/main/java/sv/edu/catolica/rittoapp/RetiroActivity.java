@@ -106,6 +106,19 @@ public class RetiroActivity extends AppCompatActivity {
                 return;
             }
 
+            // 🔒 Validar si hay suficientes monedas/billetes disponibles por denominación
+            HashMap<Double, Integer> stockActual = DenominacionStockHelper.obtenerStockDeDenominaciones(db, idAlcancia);
+
+            for (double denom : conteo.keySet()) {
+                int solicitada = conteo.get(denom);
+                int disponible = stockActual.getOrDefault(denom, 0);
+                if (solicitada > disponible) {
+                    Toast.makeText(this, "No tienes suficientes de $" + String.format(Locale.US, "%.2f", denom), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            // 🧮 Actualizar alcancía
             db.actualizarAlcanciaCantidadPorId(idAlcancia, actual - total);
 
             String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
@@ -121,6 +134,7 @@ public class RetiroActivity extends AppCompatActivity {
             Toast.makeText(this, "Retiro registrado", Toast.LENGTH_SHORT).show();
             finish();
         });
+
     }
 
     private void calcularTotal() {
@@ -130,4 +144,5 @@ public class RetiroActivity extends AppCompatActivity {
         }
         txtTotal.setText(String.format(Locale.US, "Total: $%.2f", total));
     }
+
 }
