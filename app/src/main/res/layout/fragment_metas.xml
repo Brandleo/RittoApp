@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="666dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/contenedorMetas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/btnAgregarMeta"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/mas"
+        android:background="@drawable/circle_white_bg_green_stroke"
+        android:focusable="true"
+        android:contentDescription="Agregar Meta"
+        android:scaleType="centerInside"
+        app:tint="@android:color/white"
+
+        />
+</LinearLayout>

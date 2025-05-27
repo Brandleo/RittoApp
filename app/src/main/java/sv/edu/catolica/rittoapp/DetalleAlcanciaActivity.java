@@ -39,7 +39,7 @@ public class DetalleAlcanciaActivity extends AppCompatActivity {
             if (id == R.id.nav_ahorros) {
                 fragment = new AhorrosAlcanciaFragment();
             } else if (id == R.id.nav_metas) {
-                fragment = new MetasFragment();
+                fragment = new MetasAlcanciaFragment();
             } else if (id == R.id.nav_historial) {
                 fragment = new HistorialAlcanciaFragment();
             } else if (id == R.id.nav_ajustes) {

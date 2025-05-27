@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialogo_redondo"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView android:id="@+id/txtNombreMeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meta"
+        android:textStyle="bold"/>
+
+    <TextView android:id="@+id/txtMontoMeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="La meta es: $100.00"/>
+
+    <TextView android:id="@+id/txtMontoFaltante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Te hacen falta: $45.00"/>
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AdminDB extends SQLiteOpenHelper {
@@ -45,6 +46,14 @@ public class AdminDB extends SQLiteOpenHelper {
                 "denominacion REAL, " +
                 "cantidad INTEGER, " +
                 "FOREIGN KEY(id_movimiento) REFERENCES movimiento(id))");
+
+        db.execSQL("CREATE TABLE meta (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "id_alcancia INTEGER," +
+                "nombre TEXT," +
+                "monto REAL," +
+                "FOREIGN KEY(id_alcancia) REFERENCES alcancia(id))");
+
     }
 
 
@@ -309,6 +318,35 @@ public void vaciarAlcancia(int id) {
         db.update("alcancia", values, "id = ?", new String[]{String.valueOf(idAlcancia)});
         db.close();
     }
+    public void insertarMeta(int idAlcancia, String nombre, double montoObjetivo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id_alcancia", idAlcancia);
+        values.put("nombre", nombre);
+        values.put("monto", montoObjetivo);
+        db.insert("meta", null, values);
+        db.close();
+    }
+
+    public List<Meta> obtenerMetasPorAlcancia(int idAlcancia) {
+        List<Meta> metas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM meta WHERE id_alcancia = ?", new String[]{String.valueOf(idAlcancia)});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
+                double monto = cursor.getDouble(cursor.getColumnIndexOrThrow("monto"));
+                metas.add(new Meta(id, idAlcancia, nombre, monto));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return metas;
+    }
+
+
+
 
 
 

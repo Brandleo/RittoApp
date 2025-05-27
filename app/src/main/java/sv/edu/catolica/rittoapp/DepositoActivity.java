@@ -33,7 +33,7 @@ public class DepositoActivity extends AppCompatActivity {
     private double total = 0.0;
 
     private final double[] denominaciones = {
-            0.01, 0.05, 0.10, 0.25, 0.50, 1.00,
+            0.01, 0.05, 0.10, 0.25, 1.00,
             2.00, 5.00, 10.00, 20.00,50.00,100.00
     };
 
