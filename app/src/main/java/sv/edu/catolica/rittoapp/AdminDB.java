@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -237,6 +238,7 @@ public void vaciarAlcancia(int id) {
     public List<Movimiento> obtenerMovimientosDeAlcancia(int idAlcancia) {
         List<Movimiento> lista = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
+        Log.d("DB", "Buscando movimientos para alcancía ID: " + idAlcancia);
         Cursor cursor = db.rawQuery("SELECT * FROM movimiento WHERE id_alcancia = ? ORDER BY fecha DESC", new String[]{String.valueOf(idAlcancia)});
         if (cursor.moveToFirst()) {
             do {
@@ -273,13 +275,16 @@ public void vaciarAlcancia(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id_alcancia", idAlcancia);
-        values.put("tipo", tipo); // "deposito" o "retiro"
-        values.put("fecha_hora", fechaHora);
-        values.put("total", total);
+        values.put("tipo", tipo);
+        values.put("fecha", fechaHora);             // ✅ nombre correcto
+        values.put("monto_total", total);           // ✅ nombre correcto
+
+        Log.d("DB", "Movimiento insertado para alcancía ID: " + idAlcancia + " con total: " + total);
         long idMovimiento = db.insert("movimiento", null, values);
         db.close();
         return idMovimiento;
     }
+
 
     // Insertar detalles del movimiento (denominaciones)
     public void insertarDetalleMovimiento(long idMovimiento, String denominacion, int cantidad) {
