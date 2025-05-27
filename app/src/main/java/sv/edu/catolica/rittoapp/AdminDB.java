@@ -160,10 +160,11 @@ public class AdminDB extends SQLiteOpenHelper {
 public void vaciarAlcancia(int id) {
     SQLiteDatabase db = this.getWritableDatabase();
     ContentValues values = new ContentValues();
-    values.put("cantidad", 0);
+    values.put("cantidad", 0.0);
     db.update("alcancia", values, "id = ?", new String[]{String.valueOf(id)});
     db.close();
 }
+
 
     // Borrar alcancía
     public void borrarAlcancia(int id) {
@@ -192,13 +193,7 @@ public void vaciarAlcancia(int id) {
         db.close();
     }
 
-    public void vaciarAlcancia(String nombre) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("cantidad", 0.0);
-        db.update("alcancia", values, "nombre = ?", new String[]{nombre});
-        db.close();
-    }
+
 
     public void eliminarAlcancia(String nombre) {
         SQLiteDatabase db = this.getWritableDatabase();

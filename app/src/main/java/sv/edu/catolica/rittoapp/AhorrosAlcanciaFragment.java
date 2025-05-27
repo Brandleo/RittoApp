@@ -14,6 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
 public class AhorrosAlcanciaFragment extends Fragment {
 
     private int idAlcancia;
@@ -61,6 +67,35 @@ public class AhorrosAlcanciaFragment extends Fragment {
             intent.putExtra("sellada", sellada);
             startActivity(intent);
         });
+        imgIcono.setOnClickListener(v -> {
+            AdminDB db = new AdminDB(requireContext());
+            HashMap<Double, Integer> stock = DenominacionStockHelper.obtenerStockDeDenominaciones(db, idAlcancia);
+
+            StringBuilder mensaje = new StringBuilder();
+            double total = 0;
+            List<Double> ordenadas = new ArrayList<>(stock.keySet());
+            Collections.sort(ordenadas);
+
+            for (double denom : ordenadas) {
+                int cantidad = stock.get(denom);
+                if (cantidad > 0) {
+                    mensaje.append(String.format(Locale.US, "%d de $%.2f\n", cantidad, denom));
+                    total += denom * cantidad;
+                }
+            }
+
+            if (mensaje.length() == 0) {
+                mensaje.append("No hay monedas ni billetes registrados.");
+            } else {
+                mensaje.append(String.format(Locale.US, "\nTotal desglosado: $%.2f", total));
+            }
+
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Desglose Total")
+                    .setMessage(mensaje.toString())
+                    .setPositiveButton("Cerrar", null)
+                    .show();
+        });
 
 
         btnDepositar.setOnClickListener(v -> {
@@ -71,6 +106,7 @@ public class AhorrosAlcanciaFragment extends Fragment {
             intent.putExtra("sellada", sellada);
             startActivity(intent);
         });
+
 
         return vista;
     }

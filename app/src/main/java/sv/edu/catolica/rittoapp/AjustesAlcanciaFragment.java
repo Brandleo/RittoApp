@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class AjustesAlcanciaFragment extends Fragment {
@@ -96,9 +97,35 @@ public class AjustesAlcanciaFragment extends Fragment {
 
         // Vaciar
         btnVaciar.setOnClickListener(v -> {
-            db.vaciarAlcancia(nombreActual);
-            Toast.makeText(getContext(), "Alcancía vaciada", Toast.LENGTH_SHORT).show();
+            double cantidadActual = db.obtenerCantidadActual(alcancia.getId());
+
+            if (cantidadActual <= 0) {
+                Toast.makeText(getContext(), "La alcancía ya está vacía", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 1. Obtener fecha
+            String fecha = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US).format(new java.util.Date());
+
+            // 2. Insertar movimiento tipo "retiro"
+            long idMovimiento = db.insertarMovimiento(alcancia.getId(), "retiro", fecha, cantidadActual);
+
+            // 3. Obtener desglose actual
+            HashMap<Double, Integer> stock = DenominacionStockHelper.obtenerStockDeDenominaciones(db, alcancia.getId());
+            for (double denom : stock.keySet()) {
+                int cantidadDenom = stock.get(denom);
+                if (cantidadDenom > 0) {
+                    db.insertarDetalleMovimiento(idMovimiento, String.valueOf(denom), cantidadDenom);
+                }
+            }
+
+
+            // 4. Vaciar alcancía
+            db.vaciarAlcancia(alcancia.getId());
+
+            Toast.makeText(getContext(), "Alcancía vaciada correctamente", Toast.LENGTH_SHORT).show();
         });
+
 
         // Borrar
         btnBorrar.setOnClickListener(v -> {
