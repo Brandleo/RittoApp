@@ -1,5 +1,6 @@
 package sv.edu.catolica.rittoapp;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +42,7 @@ public class HistorialAlcanciaFragment extends Fragment {
         inputFecha = vista.findViewById(R.id.inputFecha);
         spinnerTipo = vista.findViewById(R.id.spinnerFiltroTipo);
         recyclerView = vista.findViewById(R.id.recyclerHistorial);
-
+        configurarDatePicker();
         db = new AdminDB(requireContext());
 
         // Recibir ID de la alcancía
@@ -63,14 +65,6 @@ public class HistorialAlcanciaFragment extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipo.setAdapter(spinnerAdapter);
 
-        inputFecha.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filtrarMovimientos();
-            }
-            @Override public void afterTextChanged(Editable s) {}
-        });
-
         spinnerTipo.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
                 filtrarMovimientos();
@@ -79,6 +73,32 @@ public class HistorialAlcanciaFragment extends Fragment {
         });
 
         return vista;
+    }
+    private void configurarDatePicker() {
+        // Quitamos el TextWatcher ya que ahora seleccionaremos la fecha con el picker
+        inputFecha.setOnClickListener(v -> mostrarDatePicker());
+    }
+    private void mostrarDatePicker() {
+        // Obtener la fecha actual para mostrarla en el picker
+        final Calendar calendario = Calendar.getInstance();
+        int año = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        // Crear el DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, añoSeleccionado, mesSeleccionado, diaSeleccionado) -> {
+                    // Formatear la fecha como YYYY-MM-DD
+                    String fechaFormateada = String.format(Locale.US, "%04d-%02d-%02d",
+                            añoSeleccionado, mesSeleccionado + 1, diaSeleccionado);
+
+                    inputFecha.setText(fechaFormateada);
+                    filtrarMovimientos(); // Aplicar el filtro automáticamente
+                },
+                año, mes, dia);
+
+        datePickerDialog.show();
     }
     private void mostrarDesgloseMovimiento(Movimiento movimiento) {
         List<DenominacionCantidad> desglose = db.obtenerDetallesDeMovimiento(movimiento.getId());

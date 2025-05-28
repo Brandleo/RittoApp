@@ -28,8 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
-            android:hint="Buscar por fecha (YYYY-MM-DD)"
-            android:inputType="date" />
+            android:hint="Seleccionar fecha"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="none" />
 
         <Spinner
             android:id="@+id/spinnerFiltroTipo"
