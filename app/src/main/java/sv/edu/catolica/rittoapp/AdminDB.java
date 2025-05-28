@@ -206,9 +206,33 @@ public void vaciarAlcancia(int id) {
 
     public void eliminarAlcancia(String nombre) {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        // Obtener ID de la alcancía por nombre
+        Cursor cursor = db.rawQuery("SELECT id FROM alcancia WHERE nombre = ?", new String[]{nombre});
+        if (cursor.moveToFirst()) {
+            int idAlcancia = cursor.getInt(0);
+
+            // Eliminar detalles de los movimientos
+            Cursor cMovs = db.rawQuery("SELECT id FROM movimiento WHERE id_alcancia = ?", new String[]{String.valueOf(idAlcancia)});
+            while (cMovs.moveToNext()) {
+                int idMovimiento = cMovs.getInt(0);
+                db.delete("detalle_movimiento", "id_movimiento = ?", new String[]{String.valueOf(idMovimiento)});
+            }
+            cMovs.close();
+
+            // Eliminar movimientos
+            db.delete("movimiento", "id_alcancia = ?", new String[]{String.valueOf(idAlcancia)});
+
+            // Eliminar metas asociadas
+            db.delete("meta", "id_alcancia = ?", new String[]{String.valueOf(idAlcancia)});
+        }
+        cursor.close();
+
+        // Finalmente, eliminar la alcancía
         db.delete("alcancia", "nombre = ?", new String[]{nombre});
         db.close();
     }
+
 
     // Insertar movimiento principal y detalles
     public void registrarMovimiento(int idAlcancia, String tipo, String fecha, double montoTotal, List<DenominacionCantidad> detalles) {
@@ -346,8 +370,52 @@ public void vaciarAlcancia(int id) {
     }
 
 
+//////////////////////////////////////////////
+public double obtenerTotalGlobal() {
+    double total = 0;
+    SQLiteDatabase db = getReadableDatabase();
+    Cursor c = db.rawQuery("SELECT SUM(cantidad) FROM alcancia", null);
+    if (c.moveToFirst()) total = c.getDouble(0);
+    c.close();
+    db.close();
+    return total;
+}
 
 
+    public HashMap<Double, Integer> obtenerDesgloseGlobal() {
+        HashMap<Double, Integer> desglose = new HashMap<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(
+                "SELECT d.denominacion, m.tipo, d.cantidad " +
+                        "FROM detalle_movimiento d " +
+                        "JOIN movimiento m ON d.id_movimiento = m.id", null);
+
+        while (c.moveToNext()) {
+            double denom = c.getDouble(0);
+            String tipo = c.getString(1);
+            int cantidad = c.getInt(2);
+
+            // Suma si es depósito, resta si es retiro
+            int valorActual = desglose.getOrDefault(denom, 0);
+            if ("deposito".equalsIgnoreCase(tipo)) {
+                desglose.put(denom, valorActual + cantidad);
+            } else if ("retiro".equalsIgnoreCase(tipo)) {
+                desglose.put(denom, valorActual - cantidad);
+            }
+        }
+
+        c.close();
+        return desglose;
+    }
+
+
+
+    public void eliminarMeta(int idMeta) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("meta", "id = ?", new String[]{String.valueOf(idMeta)});
+        db.close();
+    }
 
 
 

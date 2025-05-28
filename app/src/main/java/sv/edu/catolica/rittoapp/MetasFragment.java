@@ -70,6 +70,10 @@ public class MetasFragment extends Fragment {
                 TextView txtMeta = vista.findViewById(R.id.txtMontoMeta);
                 TextView txtNombreMeta = vista.findViewById(R.id.txtNombreMeta);
                 TextView txtFaltan = vista.findViewById(R.id.txtMontoFaltante);
+                ImageButton btnEliminar = vista.findViewById(R.id.btnEliminarMeta); // ⬅️ Añadido
+
+                // Ocultar el botón eliminar porque estamos en vista general
+                btnEliminar.setVisibility(View.GONE);
 
                 txtNombreMeta.setText(meta.getNombre());
                 txtMeta.setText(String.format("La meta es: $%.2f", meta.getMontoObjetivo()));
@@ -84,6 +88,7 @@ public class MetasFragment extends Fragment {
 
                 contenedorMetas.addView(vista);
             }
+
         }
     }
 }

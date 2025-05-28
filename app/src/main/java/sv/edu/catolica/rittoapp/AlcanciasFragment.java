@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -72,6 +73,8 @@ public class AlcanciasFragment extends Fragment {
         ImageView imgIcono = dialogoVista.findViewById(R.id.imgIconoActual);
         Button btnAnterior = dialogoVista.findViewById(R.id.btnIconoAnterior);
         Button btnSiguiente = dialogoVista.findViewById(R.id.btnIconoSiguiente);
+
+        inputCantidad.setVisibility(View.GONE);
 
         // Configurar el input para moneda (2 decimales)
         inputCantidad.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);

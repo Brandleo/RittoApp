@@ -21,4 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Te hacen falta: $45.00"/>
+    <ImageButton
+        android:id="@+id/btnEliminarMeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_delete"
+        android:contentDescription="Eliminar meta"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_gravity="end"/>
+
 </LinearLayout>

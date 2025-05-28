@@ -1,6 +1,7 @@
 package sv.edu.catolica.rittoapp;
 
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class MetasAlcanciaFragment extends Fragment {
             TextView txtNombre = vista.findViewById(R.id.txtNombreMeta);
             TextView txtMeta = vista.findViewById(R.id.txtMontoMeta);
             TextView txtFaltan = vista.findViewById(R.id.txtMontoFaltante);
+            ImageButton btnEliminar = vista.findViewById(R.id.btnEliminarMeta);
 
             txtNombre.setText(meta.getNombre());
             txtMeta.setText(String.format("La meta es: $%.2f", meta.getMontoObjetivo()));
@@ -74,9 +76,23 @@ public class MetasAlcanciaFragment extends Fragment {
                 txtFaltan.setText(String.format("Te hacen falta: $%.2f", falta));
             }
 
+            btnEliminar.setOnClickListener(view -> {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("¿Eliminar meta?")
+                        .setMessage("¿Estás seguro de que quieres eliminar esta meta?")
+                        .setPositiveButton("Sí", (dialog, which) -> {
+                            AdminDB dbEliminar = new AdminDB(requireContext());
+                            dbEliminar.eliminarMeta(meta.getId());
+                            mostrarMetas();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            });
+
             contenedorMetas.addView(vista);
         }
     }
+
 
     private void mostrarDialogoCrearMeta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -86,6 +102,9 @@ public class MetasAlcanciaFragment extends Fragment {
 
         EditText inputNombre = dialogView.findViewById(R.id.inputNombreMeta);
         EditText inputMonto = dialogView.findViewById(R.id.inputMontoMeta);
+
+        // ✅ Limitar a 2 decimales
+        inputMonto.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(6, 2)});
 
         builder.setPositiveButton("Crear", (dialog, which) -> {
             String nombre = inputNombre.getText().toString().trim();
@@ -104,4 +123,5 @@ public class MetasAlcanciaFragment extends Fragment {
         builder.setNegativeButton("Cancelar", null);
         builder.create().show();
     }
+
 }
