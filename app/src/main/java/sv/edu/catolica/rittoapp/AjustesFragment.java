@@ -106,26 +106,33 @@ public class AjustesFragment extends Fragment {
         SharedPreferences.Editor editorNoti = prefsNoti.edit();
 
         Switch switchRecordatorio = vista.findViewById(R.id.switchRecordatorio);
-        Switch switchRacha = vista.findViewById(R.id.switchRacha);
+        //Switch switchRacha = vista.findViewById(R.id.switchRacha);
         Button btnHoraRecordatorio = vista.findViewById(R.id.btnHoraRecordatorio);
-        Button btnHoraRacha = vista.findViewById(R.id.btnHoraRacha);
+      //  Button btnHoraRacha = vista.findViewById(R.id.btnHoraRacha);
         TextView txtHoraRecordatorio = vista.findViewById(R.id.txtHoraRecordatorio);
-        TextView txtHoraRacha = vista.findViewById(R.id.txtHoraRacha);
+        //TextView txtHoraRacha = vista.findViewById(R.id.txtHoraRacha);
 
         switchRecordatorio.setChecked(prefsNoti.getBoolean("noti_recordatorio_activada", false));
         txtHoraRecordatorio.setText("Hora: " + prefsNoti.getString("noti_recordatorio_hora", "no seleccionada"));
 
-        switchRacha.setChecked(prefsNoti.getBoolean("noti_racha_activada", false));
-        txtHoraRacha.setText("Hora: " + prefsNoti.getString("noti_racha_hora", "no seleccionada"));
+        //switchRacha.setChecked(prefsNoti.getBoolean("noti_racha_activada", false));
+        //txtHoraRacha.setText("Hora: " + prefsNoti.getString("noti_racha_hora", "no seleccionada"));
 
 // Guardar switches
         switchRecordatorio.setOnCheckedChangeListener((b, isChecked) -> {
             editorNoti.putBoolean("noti_recordatorio_activada", isChecked).apply();
-        });
 
-        switchRacha.setOnCheckedChangeListener((b, isChecked) -> {
-            editorNoti.putBoolean("noti_racha_activada", isChecked).apply();
+            if (!isChecked) {
+                // Cancelar la notificación programada
+                NotificacionUtil.cancelarNotificacion(requireContext());
+                Toast.makeText(requireContext(), "Recordatorio diario desactivado", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "No olvides establecer una hora para el recordatorio", Toast.LENGTH_SHORT).show();
+            }
         });
+      //  switchRacha.setOnCheckedChangeListener((b, isChecked) -> {
+        //    editorNoti.putBoolean("noti_racha_activada", isChecked).apply();
+       // });
 
 // Elegir hora con TimePicker
         btnHoraRecordatorio.setOnClickListener(v -> {
@@ -134,11 +141,11 @@ public class AjustesFragment extends Fragment {
                 String hora = String.format(Locale.US, "%02d:%02d", h, m);
                 txtHoraRecordatorio.setText("Hora: " + hora);
                 editorNoti.putString("noti_recordatorio_hora", hora).apply();
-                NotificacionUtil.programarNotificacion(requireContext(), "recordatorio", h, m);
+                NotificacionUtil.programarNotificacion(requireContext(), h, m);
             }, ahora.get(Calendar.HOUR_OF_DAY), ahora.get(Calendar.MINUTE), true).show();
         });
 
-        btnHoraRacha.setOnClickListener(v -> {
+/*        btnHoraRacha.setOnClickListener(v -> {
             Calendar ahora = Calendar.getInstance();
             new TimePickerDialog(getContext(), (tp, h, m) -> {
                 String hora = String.format(Locale.US, "%02d:%02d", h, m);
@@ -146,7 +153,7 @@ public class AjustesFragment extends Fragment {
                 editorNoti.putString("noti_racha_hora", hora).apply();
                 NotificacionUtil.programarNotificacion(requireContext(), "racha", h, m);
             }, ahora.get(Calendar.HOUR_OF_DAY), ahora.get(Calendar.MINUTE), true).show();
-        });
+        });*/
 
         return vista;
 

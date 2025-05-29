@@ -10,12 +10,12 @@ import java.util.Calendar;
 public class NotificacionUtil {
 
 
-    public static void programarNotificacion(Context context, String tipo, int hora, int minuto) {
+    public static void programarNotificacion(Context context, int hora, int minuto) {
         Intent intent = new Intent(context, NotificacionReceiver.class);
-        intent.putExtra("tipo", tipo);
+        intent.putExtra("tipo", "recordatorio");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context, tipo.hashCode(), intent,
+                context, "recordatorio".hashCode(), intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
@@ -35,5 +35,16 @@ public class NotificacionUtil {
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent
         );
+    }
+
+    public static void cancelarNotificacion(Context context) {
+        Intent intent = new Intent(context, NotificacionReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context, "recordatorio".hashCode(), intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
     }
 }

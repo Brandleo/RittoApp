@@ -1,15 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="Pantalla de resumen general">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/contenedorResumen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal" />
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Saludo motivacional -->
+        <TextView
+            android:id="@+id/tituloBienvenida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Hola! Bienvenido a tu resumen"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#8B0000"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Tarjeta resumen -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ABDF75"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="6dp"
+            android:backgroundTint="#ABDF75"
+            android:clipToPadding="false">
+
+            <TextView
+                android:id="@+id/totalAhorros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total global ahorrado:"
+                android:textSize="18sp"
+                android:textColor="#01200F"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Este espacio lo rellenarás dinámicamente -->
+        </LinearLayout>
+
+        <!-- Imagen ilustrativa -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/alcanciainicio"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Icono de alcancía"
+            app:tint="#8B0000" />
+
+        <!-- Frase motivacional -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Cada moneda cuenta! 💰"
+            android:textSize="16sp"
+            android:textColor="#8B0000"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
 
 </ScrollView>

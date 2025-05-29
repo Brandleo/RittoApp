@@ -14,39 +14,31 @@ import java.util.Locale;
 
 public class NotificacionReceiver extends BroadcastReceiver {
     @Override
-    public void onReceive(Context context, Intent intent) {
-        Log.d("NotiDebug", "Se ejecutó el receiver: " + intent.getStringExtra("tipo"));
-        String tipo = intent.getStringExtra("tipo");
 
-        String titulo = "RittoApp";
-        String mensaje = "";
+        public void onReceive(Context context, Intent intent) {
+            String tipo = intent.getStringExtra("tipo");
+            Log.d("NotiDebug", "Se ejecutó el receiver: " + tipo);
 
-        if ("recordatorio".equals(tipo)) {
-            mensaje = "¿Ahorraste hoy? ¡No olvides registrarlo en tu alcancía!";
-        } else if ("racha".equals(tipo)) {
-            int racha = context.getSharedPreferences("perfil_sesion", Context.MODE_PRIVATE)
-                    .getInt("racha_dias", 0);
-            if (racha >= 2) {
-                mensaje = String.format(Locale.US, "¡Excelente! Ya llevas %d días ahorrando. ¡Sigue así!", racha);
-            } else {
+            if (!"recordatorio".equals(tipo)) return; // Ignorar cualquier otro tipo
+
+            String titulo = "RittoApp";
+            String mensaje = "¿Ahorraste hoy? ¡No olvides registrarlo en tu alcancía!";
+
+            // Verificar permisos antes de mostrar
+            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.w("NotiDebug", "Permiso de notificaciones no concedido");
                 return;
             }
-        }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ritto_channel")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(titulo)
-                .setContentText(mensaje)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ritto_channel")
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(titulo)
+                    .setContentText(mensaje)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setAutoCancel(true);
 
-// Verificar permisos antes de mostrar
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        NotificationManagerCompat manager = NotificationManagerCompat.from(context);
-        manager.notify(tipo.hashCode(), builder.build());
+            NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+            manager.notify(tipo.hashCode(), builder.build());
     }
 }

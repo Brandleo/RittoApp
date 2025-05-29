@@ -1,5 +1,6 @@
 package sv.edu.catolica.rittoapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,23 +30,22 @@ public class InicioFragment extends Fragment {
     private void mostrarResumen() {
         AdminDB db = new AdminDB(requireContext());
 
-        // Total global
         double totalGlobal = db.obtenerTotalGlobal();
-        TextView txtTotal = new TextView(getContext());
-        txtTotal.setText("Total global ahorrado: $" + String.format(Locale.US, "%.2f", totalGlobal));
-        txtTotal.setTextSize(18);
-        txtTotal.setPadding(0, 0, 0, 24);
-        contenedorResumen.addView(txtTotal);
-
-        // Desglose global
         HashMap<Double, Integer> desglose = db.obtenerDesgloseGlobal();
+
+        LinearLayout tarjetaResumen = (LinearLayout) contenedorResumen.getChildAt(1); // la tarjeta verde
+
+        TextView totalTxt = tarjetaResumen.findViewById(R.id.totalAhorros);
+        totalTxt.setText("Total global ahorrado: $" + String.format(Locale.US, "%.2f", totalGlobal));
+
         for (double denom : desglose.keySet()) {
             int cantidad = desglose.get(denom);
             if (cantidad > 0) {
                 TextView txtDenom = new TextView(getContext());
                 txtDenom.setText(cantidad + " × $" + String.format(Locale.US, "%.2f", denom));
                 txtDenom.setTextSize(16);
-                contenedorResumen.addView(txtDenom);
+                txtDenom.setTextColor(Color.parseColor("#01200F"));
+                tarjetaResumen.addView(txtDenom);
             }
         }
     }
