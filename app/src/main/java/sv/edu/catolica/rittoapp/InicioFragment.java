@@ -44,7 +44,6 @@ public class InicioFragment extends Fragment {
                 TextView txtDenom = new TextView(getContext());
                 txtDenom.setText(cantidad + " × $" + String.format(Locale.US, "%.2f", denom));
                 txtDenom.setTextSize(16);
-                txtDenom.setTextColor(Color.parseColor("#01200F"));
                 tarjetaResumen.addView(txtDenom);
             }
         }
