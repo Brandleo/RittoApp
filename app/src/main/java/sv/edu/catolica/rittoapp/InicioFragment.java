@@ -36,7 +36,7 @@ public class InicioFragment extends Fragment {
         LinearLayout tarjetaResumen = (LinearLayout) contenedorResumen.getChildAt(1); // la tarjeta verde
 
         TextView totalTxt = tarjetaResumen.findViewById(R.id.totalAhorros);
-        totalTxt.setText("Total global ahorrado: $" + String.format(Locale.US, "%.2f", totalGlobal));
+        totalTxt.setText(getString(R.string.total_global_ahorradoo) + String.format(Locale.US, "%.2f", totalGlobal));
 
         for (double denom : desglose.keySet()) {
             int cantidad = desglose.get(denom);

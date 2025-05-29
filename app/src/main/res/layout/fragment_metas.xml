@@ -26,7 +26,7 @@
         android:src="@drawable/mas"
         android:background="@drawable/circle_white_bg_green_stroke"
         android:focusable="true"
-        android:contentDescription="Agregar Meta"
+        android:contentDescription="@string/agregar_meta"
         android:scaleType="centerInside"
         app:tint="@android:color/white"
 

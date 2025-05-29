@@ -41,10 +41,10 @@ public class CrearPerfil extends AppCompatActivity {
                     adminDB.agregarPerfil(nombre, rutaImagenLocal, pin);
                     finish(); // regresa a SeleccionPerfil
                 } else {
-                    Toast.makeText(this, "No se pudo copiar la imagen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_se_pudo_copiar_la_imagen, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Completa todos los campos y usa un PIN de 4 dígitos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.completa_todos_los_campos_y_usa_un_pin_de_4_d_gitos, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,10 +69,10 @@ public class CrearPerfil extends AppCompatActivity {
                     adminDB.agregarPerfil(nombre, rutaImagenLocal, pin);
                     finish(); // regresa a SeleccionPerfil
                 } else {
-                    Toast.makeText(this, "No se pudo copiar la imagen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_se_pudo_copiar_la_imagen, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Completa todos los campos y usa un PIN de 4 dígitos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.completa_todos_los_campos_y_usa_un_pin_de_4_d_gitoss, Toast.LENGTH_SHORT).show();
             }
         });
 

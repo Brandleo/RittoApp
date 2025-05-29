@@ -112,9 +112,9 @@ public class SeleccionPerfil extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1001) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permiso de notificaciones concedido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.permiso_de_notificaciones_concedido, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Sin permiso para notificaciones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.sin_permiso_para_notificaciones, Toast.LENGTH_SHORT).show();
             }
         }
     }

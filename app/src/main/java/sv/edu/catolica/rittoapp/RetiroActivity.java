@@ -114,18 +114,18 @@ public class RetiroActivity extends AppCompatActivity {
 
         btnConfirmar.setOnClickListener(v -> {
             if (sellada) {
-                Toast.makeText(this, "Esta alcancía está sellada y no permite retiros.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.esta_alcanc_a_est_sellada_y_no_permite_retiross, Toast.LENGTH_LONG).show();
                 return;
             }
 
             if (total <= 0) {
-                Toast.makeText(this, "Ingresa una cantidad válida para retirar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.ingresa_una_cantidad_v_lida_para_retirar, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             double actual = db.obtenerCantidadActual(idAlcancia);
             if (total > actual) {
-                Toast.makeText(this, "No hay suficiente dinero en la alcancía", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.no_hay_suficiente_dinero_en_la_alcanc_a, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -136,7 +136,7 @@ public class RetiroActivity extends AppCompatActivity {
                 int solicitada = conteo.get(denom);
                 int disponible = stockActual.getOrDefault(denom, 0);
                 if (solicitada > disponible) {
-                    Toast.makeText(this, "No tienes suficientes de $" + String.format(Locale.US, "%.2f", denom), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.no_tienes_suficientes_de) + String.format(Locale.US, "%.2f", denom), Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -153,7 +153,7 @@ public class RetiroActivity extends AppCompatActivity {
                 }
             }
 
-            Toast.makeText(this, "Retiro registrado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.retiro_registrado, Toast.LENGTH_SHORT).show();
             finish();
         });
     }
@@ -163,6 +163,6 @@ public class RetiroActivity extends AppCompatActivity {
         for (double valor : conteo.keySet()) {
             total += valor * conteo.get(valor);
         }
-        txtTotal.setText(String.format(Locale.US, "Total: $%.2f", total));
+        txtTotal.setText(String.format(Locale.US, getString(R.string.totaal_2f), total));
     }
 }

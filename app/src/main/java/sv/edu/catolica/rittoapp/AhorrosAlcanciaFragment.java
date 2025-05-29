@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -49,14 +50,14 @@ public class AhorrosAlcanciaFragment extends Fragment {
             double cantidad = db.obtenerCantidadActual(idAlcancia);
 
             txtNombre.setText(nombre);
-            txtTotal.setText(String.format("Total: $%.2f", cantidad));
+            txtTotal.setText(String.format(getString(R.string.total_2f), cantidad));
             int resId = requireContext().getResources().getIdentifier(icono, "drawable", requireContext().getPackageName());
             imgIcono.setImageResource(resId != 0 ? resId : R.drawable.tunco);
         }
         ImageButton btnRetirar = vista.findViewById(R.id.btnRetirarDinero);
         btnRetirar.setOnClickListener(v -> {
             if (sellada) {
-                Toast.makeText(getContext(), "Esta alcancía está sellada y no permite retiros", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.esta_alcanc_a_est_sellada_y_no_permite_retiros, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -79,21 +80,21 @@ public class AhorrosAlcanciaFragment extends Fragment {
             for (double denom : ordenadas) {
                 int cantidad = stock.get(denom);
                 if (cantidad > 0) {
-                    mensaje.append(String.format(Locale.US, "%d de $%.2f\n", cantidad, denom));
+                    mensaje.append(String.format(Locale.US, getString(R.string.d_de_2f), cantidad, denom));
                     total += denom * cantidad;
                 }
             }
 
             if (mensaje.length() == 0) {
-                mensaje.append("No hay monedas ni billetes registrados.");
+                mensaje.append(getString(R.string.no_hay_monedas_ni_billetes_registrados));
             } else {
-                mensaje.append(String.format(Locale.US, "\nTotal desglosado: $%.2f", total));
+                mensaje.append(String.format(Locale.US, getString(R.string.total_desglosado_2f), total));
             }
 
-            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                    .setTitle("Desglose Total")
+            new AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.desglose_total)
                     .setMessage(mensaje.toString())
-                    .setPositiveButton("Cerrar", null)
+                    .setPositiveButton(R.string.cerrar, null)
                     .show();
         });
 
@@ -116,7 +117,7 @@ public class AhorrosAlcanciaFragment extends Fragment {
         super.onResume();
         AdminDB db = new AdminDB(requireContext());
         double actual = db.obtenerCantidadActual(idAlcancia);
-        txtTotal.setText(String.format("Total: $%.2f", actual));
+        txtTotal.setText(String.format(getString(R.string.total_2f), actual));
     }
 
 }

@@ -15,7 +15,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:padding="12dp"
-        android:text="Selecciona tu perfil"
+        android:text="@string/selecciona_tu_perfil"
         android:textColor="#800000"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Aún no tienes perfiles registrados."
+        android:text="@string/a_n_no_tienes_perfiles_registrados"
         android:textColor="#800000"
         android:textSize="18sp"
         android:visibility="gone" />
@@ -48,7 +48,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="24dp"
         android:backgroundTint="#FFD700"
-        android:text="Crear nuevo perfil"
+        android:text="@string/crear_nuevo_perfil"
         android:textColor="#800000"
         android:textStyle="bold"
         android:onClick="crearperfil"/>

@@ -6,13 +6,13 @@
 
     <EditText
         android:id="@+id/inputNombreMeta"
-        android:hint="Nombre de la meta"
+        android:hint="@string/nombre_de_la_meta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/inputMontoMeta"
-        android:hint="Monto objetivo"
+        android:hint="@string/monto_objetivo"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

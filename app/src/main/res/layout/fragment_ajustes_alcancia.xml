@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cambiar avatar de alcancía"
+            android:text="@string/cambiar_avatar_de_alcanc_a"
             android:textSize="18sp"
             android:layout_marginBottom="8dp" />
 
@@ -23,7 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="Icono de alcancía" />
+            android:contentDescription="@string/icono_de_alcanc_a" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,27 +35,27 @@
                 android:id="@+id/btnAnteriorIcono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="←" />
+                android:text="@string/flecha_a_la_izquierda" />
 
             <Button
                 android:id="@+id/btnSiguienteIcono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="→" />
+                android:text="@string/flecha_a_la_derecha" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/inputNuevoNombreAlcancia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cambiar nombre de alcancía"
+            android:hint="@string/cambiar_nombre_de_alcanc_a"
             android:layout_marginBottom="24dp" />
 
         <Button
             android:id="@+id/btnGuardarCambiosAlcancia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar cambios"
+            android:text="@string/guardar_cambios"
             android:layout_marginBottom="24dp" />
 
         <LinearLayout
@@ -68,14 +68,14 @@
                 android:id="@+id/btnVaciarAlcancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vaciar alcancía"
+                android:text="@string/vaciar_alcanc_a"
                 android:layout_marginEnd="16dp" />
 
             <Button
                 android:id="@+id/btnBorrarAlcancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Borrar alcancía" />
+                android:text="@string/borrar_alcanc_a" />
         </LinearLayout>
 
     </LinearLayout>

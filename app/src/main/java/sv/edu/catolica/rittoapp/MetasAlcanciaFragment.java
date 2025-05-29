@@ -55,7 +55,7 @@ public class MetasAlcanciaFragment extends Fragment {
         List<Meta> metas = db.obtenerMetasPorAlcancia(idAlcancia);
 
         TextView txtSaldo = new TextView(getContext());
-        txtSaldo.setText("Saldo actual: $" + String.format(Locale.US, "%.2f", saldo));
+        txtSaldo.setText(getString(R.string.saldo_actual) + String.format(Locale.US, "%.2f", saldo));
         contenedorMetas.addView(txtSaldo);
 
         for (Meta meta : metas) {
@@ -66,26 +66,26 @@ public class MetasAlcanciaFragment extends Fragment {
             ImageButton btnEliminar = vista.findViewById(R.id.btnEliminarMeta);
 
             txtNombre.setText(meta.getNombre());
-            txtMeta.setText(String.format("La meta es: $%.2f", meta.getMontoObjetivo()));
+            txtMeta.setText(String.format(getString(R.string.la_meta_es_2ffragment), meta.getMontoObjetivo()));
 
             double falta = meta.getMontoObjetivo() - saldo;
             if (falta <= 0) {
-                txtFaltan.setText("✅ ¡Meta alcanzada!");
+                txtFaltan.setText(R.string.meta_alcanzada);
                 txtFaltan.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200));
             } else {
-                txtFaltan.setText(String.format("Te hacen falta: $%.2f", falta));
+                txtFaltan.setText(String.format(getString(R.string.te_hacen_falta_2f), falta));
             }
 
             btnEliminar.setOnClickListener(view -> {
                 new AlertDialog.Builder(requireContext())
-                        .setTitle("¿Eliminar meta?")
-                        .setMessage("¿Estás seguro de que quieres eliminar esta meta?")
-                        .setPositiveButton("Sí", (dialog, which) -> {
+                        .setTitle(R.string.eliminar_metas)
+                        .setMessage(R.string.est_s_seguro_de_que_quieres_eliminar_esta_meta)
+                        .setPositiveButton(R.string.s, (dialog, which) -> {
                             AdminDB dbEliminar = new AdminDB(requireContext());
                             dbEliminar.eliminarMeta(meta.getId());
                             mostrarMetas();
                         })
-                        .setNegativeButton("Cancelar", null)
+                        .setNegativeButton(R.string.cancelar, null)
                         .show();
             });
 
@@ -98,7 +98,7 @@ public class MetasAlcanciaFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_crear_meta, null);
         builder.setView(dialogView);
-        builder.setTitle("Nueva Meta");
+        builder.setTitle(R.string.nueva_meta);
 
         EditText inputNombre = dialogView.findViewById(R.id.inputNombreMeta);
         EditText inputMonto = dialogView.findViewById(R.id.inputMontoMeta);
@@ -106,7 +106,7 @@ public class MetasAlcanciaFragment extends Fragment {
         // ✅ Limitar a 2 decimales
         inputMonto.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(6, 2)});
 
-        builder.setPositiveButton("Crear", (dialog, which) -> {
+        builder.setPositiveButton(R.string.crear, (dialog, which) -> {
             String nombre = inputNombre.getText().toString().trim();
             String montoStr = inputMonto.getText().toString().trim();
 
@@ -116,11 +116,11 @@ public class MetasAlcanciaFragment extends Fragment {
                 db.insertarMeta(idAlcancia, nombre, monto);
                 mostrarMetas();
             } else {
-                Toast.makeText(getContext(), "Campos incompletos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.campos_incompletos, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNegativeButton(R.string.cancelar, null);
         builder.create().show();
     }
 

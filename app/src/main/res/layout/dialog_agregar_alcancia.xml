@@ -7,7 +7,7 @@
     android:gravity="center_horizontal">
 
     <TextView
-        android:text="Nuevo Icono"
+        android:text="@string/nuevo_icono"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
 
         <Button
             android:id="@+id/btnIconoAnterior"
-            android:text="←"
+            android:text="@string/flecha_a_la_izquierda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/btnIconoSiguiente"
-            android:text="→"
+            android:text="@string/flecha_a_la_derecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -46,19 +46,19 @@
         android:layout_width="match_parent"
         android:layout_height="79dp"
         android:layout_marginBottom="12dp"
-        android:hint="Nombre de la alcancía" />
+        android:hint="@string/nombre_de_la_alcanc_a" />
 
     <EditText
         android:id="@+id/inputCantidadInicial"
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:layout_marginBottom="12dp"
-        android:hint="Cantidad inicial"
+        android:hint="@string/cantidad_inicial"
         android:inputType="numberDecimal" />
 
     <CheckBox
         android:id="@+id/checkSellada"
-        android:text="¿Está sellada?"
+        android:text="@string/est_sellada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>

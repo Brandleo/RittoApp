@@ -38,7 +38,7 @@ public class AjustesAlcanciaFragment extends Fragment {
         // Obtener datos de la alcancía desde el Bundle
         Bundle bundle = getArguments();
         if (bundle == null) {
-            Toast.makeText(getContext(), "Error al cargar datos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_al_cargar_datos, Toast.LENGTH_SHORT).show();
             return vista;
         }
 
@@ -57,9 +57,11 @@ public class AjustesAlcanciaFragment extends Fragment {
 
         // Configurar iconos disponibles
         iconos = Arrays.asList(
-                new IconoItem("cerdito", R.drawable.tunco),
-                new IconoItem("balon", R.drawable.balon),
-                new IconoItem("barril", R.drawable.barril)
+                new IconoItem("barril", R.drawable.barril),
+                new IconoItem("huevo", R.drawable.huevo),
+                new IconoItem("cerdoblue", R.drawable.cerdoblue),
+                new IconoItem("cerdorosa", R.drawable.cerdorosa),
+                new IconoItem("bolaristal", R.drawable.bolaristal)
         );
 
         // Inicializar vistas
@@ -84,7 +86,7 @@ public class AjustesAlcanciaFragment extends Fragment {
         btnGuardar.setOnClickListener(v -> {
             String nuevoNombre = inputNuevoNombre.getText().toString().trim();
             if (nuevoNombre.isEmpty()) {
-                Toast.makeText(getContext(), "Ingresa un nombre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.ingresa_un_nombre, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -92,7 +94,7 @@ public class AjustesAlcanciaFragment extends Fragment {
             db.actualizarAlcancia(nombreActual, nuevoNombre, nuevoIcono);
             nombreActual = nuevoNombre;
 
-            Toast.makeText(getContext(), "Alcancía actualizada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.alcanc_a_actualizada, Toast.LENGTH_SHORT).show();
         });
 
         // Vaciar
@@ -100,7 +102,7 @@ public class AjustesAlcanciaFragment extends Fragment {
             double cantidadActual = db.obtenerCantidadActual(alcancia.getId());
 
             if (cantidadActual <= 0) {
-                Toast.makeText(getContext(), "La alcancía ya está vacía", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.la_alcanc_a_ya_est_vac_a, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -108,7 +110,7 @@ public class AjustesAlcanciaFragment extends Fragment {
             String fecha = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US).format(new java.util.Date());
 
             // 2. Insertar movimiento tipo "retiro"
-            long idMovimiento = db.insertarMovimiento(alcancia.getId(), "retiro", fecha, cantidadActual);
+            long idMovimiento = db.insertarMovimiento(alcancia.getId(), getString(R.string.retiro), fecha, cantidadActual);
 
             // 3. Obtener desglose actual
             HashMap<Double, Integer> stock = DenominacionStockHelper.obtenerStockDeDenominaciones(db, alcancia.getId());
@@ -123,20 +125,20 @@ public class AjustesAlcanciaFragment extends Fragment {
             // 4. Vaciar alcancía
             db.vaciarAlcancia(alcancia.getId());
 
-            Toast.makeText(getContext(), "Alcancía vaciada correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.alcanc_a_vaciada_correctamente, Toast.LENGTH_SHORT).show();
         });
 
 
         // Borrar
         btnBorrar.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("¿Eliminar alcancía?")
-                    .setMessage("Esta acción no se puede deshacer.")
-                    .setPositiveButton("Sí", (dialog, which) -> {
+                    .setTitle(R.string.eliminar_alcanc_a)
+                    .setMessage(R.string.esta_acci_n_no_se_puede_deshacer)
+                    .setPositiveButton(R.string.si, (dialog, which) -> {
                         db.eliminarAlcancia(nombreActual);
                         requireActivity().finish();
                     })
-                    .setNegativeButton("Cancelar", null)
+                    .setNegativeButton(R.string.cerrar, null)
                     .show();
         });
 

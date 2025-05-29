@@ -10,7 +10,7 @@
         android:id="@+id/txtTituloHistorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Historial de Movimientos"
+        android:text="@string/historial_de_movimientos"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
-            android:hint="Seleccionar fecha"
+            android:hint="@string/seleccionar_fecha"
             android:focusable="false"
             android:clickable="true"
             android:inputType="none" />

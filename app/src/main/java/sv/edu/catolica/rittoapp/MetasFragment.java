@@ -60,7 +60,7 @@ public class MetasFragment extends Fragment {
             List<Meta> metas = db.obtenerMetasPorAlcancia(alc.getId());
 
             TextView txtNombre = new TextView(getContext());
-            txtNombre.setText("Metas de: " + alc.getNombre() + " (Saldo: $" + String.format(Locale.US, "%.2f", saldo) + ")");
+            txtNombre.setText(getString(R.string.metas_de) + alc.getNombre() + getString(R.string.saldo) + String.format(Locale.US, "%.2f", saldo) + ")");
             txtNombre.setTextSize(16);
             txtNombre.setPadding(0, 16, 0, 8);
             contenedorMetas.addView(txtNombre);
@@ -76,14 +76,14 @@ public class MetasFragment extends Fragment {
                 btnEliminar.setVisibility(View.GONE);
 
                 txtNombreMeta.setText(meta.getNombre());
-                txtMeta.setText(String.format("La meta es: $%.2f", meta.getMontoObjetivo()));
+                txtMeta.setText(String.format(getString(R.string.la_meta_es_2f), meta.getMontoObjetivo()));
 
                 double falta = meta.getMontoObjetivo() - saldo;
                 if (falta <= 0) {
-                    txtFaltan.setText("✅ ¡Meta alcanzada!");
+                    txtFaltan.setText(R.string.meta_alcanzada);
                     txtFaltan.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200));
                 } else {
-                    txtFaltan.setText(String.format("Te hacen falta: $%.2f", falta));
+                    txtFaltan.setText(String.format(getString(R.string.te_hacen_falta_2f), falta));
                 }
 
                 contenedorMetas.addView(vista);

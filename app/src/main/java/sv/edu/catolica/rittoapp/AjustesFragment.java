@@ -71,7 +71,7 @@ public class AjustesFragment extends Fragment {
             String nuevoPin = inputPin.getText().toString().trim();
 
             if (nuevoNombre.isEmpty() || nuevoPin.length() < 4) {
-                Toast.makeText(getContext(), "Verifica los datos ingresados (PIN mínimo 4 dígitos)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.verifica_los_datos_ingresados_pin_m_nimo_4_d_gitos, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -90,7 +90,7 @@ public class AjustesFragment extends Fragment {
             editor.apply();
 
             perfilActual = nuevoNombre;
-            Toast.makeText(getContext(), "Perfil actualizado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.perfil_actualizado, Toast.LENGTH_SHORT).show();
         });
 
         btnCerrarSesion.setOnClickListener(v -> {
@@ -112,22 +112,22 @@ public class AjustesFragment extends Fragment {
         TextView txtHoraRecordatorio = vista.findViewById(R.id.txtHoraRecordatorio);
         //TextView txtHoraRacha = vista.findViewById(R.id.txtHoraRacha);
 
-        switchRecordatorio.setChecked(prefsNoti.getBoolean("noti_recordatorio_activada", false));
-        txtHoraRecordatorio.setText("Hora: " + prefsNoti.getString("noti_recordatorio_hora", "no seleccionada"));
+        switchRecordatorio.setChecked(prefsNoti.getBoolean(getString(R.string.noti_recordatorio_activada), false));
+        txtHoraRecordatorio.setText(getString(R.string.hora) + prefsNoti.getString(getString(R.string.noti_recordatorio_hora), getString(R.string.no_seleccionada)));
 
         //switchRacha.setChecked(prefsNoti.getBoolean("noti_racha_activada", false));
         //txtHoraRacha.setText("Hora: " + prefsNoti.getString("noti_racha_hora", "no seleccionada"));
 
 // Guardar switches
         switchRecordatorio.setOnCheckedChangeListener((b, isChecked) -> {
-            editorNoti.putBoolean("noti_recordatorio_activada", isChecked).apply();
+            editorNoti.putBoolean(getString(R.string.noti_recordatorio_activada), isChecked).apply();
 
             if (!isChecked) {
                 // Cancelar la notificación programada
                 NotificacionUtil.cancelarNotificacion(requireContext());
-                Toast.makeText(requireContext(), "Recordatorio diario desactivado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.recordatorio_diario_desactivado, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(requireContext(), "No olvides establecer una hora para el recordatorio", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.no_olvides_establecer_una_hora_para_el_recordatorio, Toast.LENGTH_SHORT).show();
             }
         });
       //  switchRacha.setOnCheckedChangeListener((b, isChecked) -> {

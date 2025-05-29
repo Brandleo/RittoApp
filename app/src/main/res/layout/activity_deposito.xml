@@ -15,7 +15,7 @@
             android:id="@+id/txtNombreAlcancia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alcancía"
+            android:text="@string/alcanc_a"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
@@ -26,7 +26,7 @@
             android:layout_height="100dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/mas"
-            android:contentDescription="Icono" />
+            android:contentDescription="@string/icono" />
 
         <!-- Aquí vamos a agregar las filas para cada moneda y billete dinámicamente -->
 
@@ -41,7 +41,7 @@
             android:id="@+id/txtTotalDeposito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: $0.00"
+            android:text="@string/total_0_00"
             android:textSize="16sp"
             android:layout_marginBottom="16dp" />
 
@@ -49,6 +49,6 @@
             android:id="@+id/btnConfirmarDeposito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ingresar" />
+            android:text="@string/ingresar" />
     </LinearLayout>
 </ScrollView>

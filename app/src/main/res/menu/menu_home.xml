@@ -2,17 +2,17 @@
     <item
         android:id="@+id/nav_inicio"
         android:icon="@drawable/ic_home"
-        android:title="Inicio" />
+        android:title="@string/inicio" />
     <item
         android:id="@+id/nav_alcancias"
         android:icon="@drawable/ic_savings"
-        android:title="Alcancías" />
+        android:title="@string/alcanc_as" />
     <item
         android:id="@+id/nav_metas"
         android:icon="@drawable/ic_target"
-        android:title="Metas" />
+        android:title="@string/metashome" />
     <item
         android:id="@+id/nav_ajustes"
         android:icon="@drawable/ic_settings"
-        android:title="Ajustes" />
+        android:title="@string/ajusteshome" />
 </menu>

@@ -22,12 +22,12 @@ public class NotificacionReceiver extends BroadcastReceiver {
             if (!"recordatorio".equals(tipo)) return; // Ignorar cualquier otro tipo
 
             String titulo = "RittoApp";
-            String mensaje = "¿Ahorraste hoy? ¡No olvides registrarlo en tu alcancía!";
+            String mensaje = context.getString(R.string.ahorraste_hoy_no_olvides_registrarlo_en_tu_alcanc_a);
 
             // Verificar permisos antes de mostrar
             if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
-                Log.w("NotiDebug", "Permiso de notificaciones no concedido");
+                Log.w("NotiDebug", context.getString(R.string.permiso_de_notificaciones_no_concedido));
                 return;
             }
 

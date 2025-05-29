@@ -15,7 +15,7 @@
             android:id="@+id/inputNuevoNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cambiar nombre"
+            android:hint="@string/cambiar_nombre"
             android:inputType="textPersonName"
             android:layout_marginBottom="16dp"/>
 
@@ -32,7 +32,7 @@
             android:id="@+id/inputNuevoPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cambiar PIN"
+            android:hint="@string/cambiar_pin"
             android:inputType="numberPassword"
             android:maxLength="4"
             android:layout_marginBottom="24dp"/>
@@ -41,14 +41,14 @@
             android:id="@+id/btnGuardarCambios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar cambios"
+            android:text="@string/guardar_cambios"
             android:layout_marginBottom="16dp"/>
 
         <Button
             android:id="@+id/btnCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar sesión"
+            android:text="@string/cerrar_sesi_n"
             android:backgroundTint="@android:color/holo_red_light"
             android:textColor="@android:color/white"/>
 
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notificaciones"
+                android:text="@string/notificaciones"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp" />
@@ -76,19 +76,19 @@
                 android:id="@+id/switchRecordatorio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recordatorio diario para ahorrar" />
+                android:text="@string/recordatorio_diario_para_ahorrar" />
 
             <Button
                 android:id="@+id/btnHoraRecordatorio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Elegir hora recordatorio" />
+                android:text="@string/elegir_hora_recordatorio" />
 
             <TextView
                 android:id="@+id/txtHoraRecordatorio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora: No establecida"
+                android:text="@string/hora_no_establecida"
                 android:paddingBottom="12dp" />
 
 <!--            &lt;!&ndash; Racha de ahorro &ndash;&gt;

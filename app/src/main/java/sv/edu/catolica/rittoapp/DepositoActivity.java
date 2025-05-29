@@ -134,10 +134,10 @@ public class DepositoActivity extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(this, "✅ Depósito guardado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.dep_sito_guardado, Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(this, "⚠️ Error: asegúrate de ingresar una cantidad válida", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.error_aseg_rate_de_ingresar_una_cantidad_v_lida, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -147,6 +147,6 @@ public class DepositoActivity extends AppCompatActivity {
         for (double valor : conteo.keySet()) {
             total += valor * conteo.get(valor);
         }
-        txtTotal.setText(String.format(Locale.US, "Total: $%.2f", total));
+        txtTotal.setText(String.format(Locale.US, getString(R.string.totals_2f), total));
     }
 }

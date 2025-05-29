@@ -47,7 +47,7 @@ public class AlcanciasFragment extends Fragment {
         perfilActual = prefs.getString("nombrePerfil", null);
 
         if (perfilActual == null || perfilActual.isEmpty()) {
-            Toast.makeText(getContext(), "Debes seleccionar un perfil primero", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.debes_seleccionar_un_perfil_primero, Toast.LENGTH_SHORT).show();
             requireActivity().finish();
             return vista;
         }
@@ -155,7 +155,7 @@ public class AlcanciasFragment extends Fragment {
                 String icono = iconos.get(index[0]).getNombre();
 
                 if (nombre.isEmpty()) {
-                    inputNombre.setError("Nombre requerido");
+                    inputNombre.setError(getString(R.string.nombre_requerido));
                     return;
                 }
 
@@ -163,13 +163,13 @@ public class AlcanciasFragment extends Fragment {
                 if (!cantidadStr.isEmpty()) {
                     try {
                         if (cantidadStr.contains(".") && cantidadStr.split("\\.")[1].length() > 2) {
-                            inputCantidad.setError("Máximo 2 decimales");
+                            inputCantidad.setError(getString(R.string.m_ximo_2_decimales));
                             return;
                         }
 
                         double cantidad = Double.parseDouble(cantidadStr);
                         if (cantidad < 0) {
-                            inputCantidad.setError("El monto no puede ser negativo");
+                            inputCantidad.setError(getString(R.string.el_monto_no_puede_ser_negativo));
                             return;
                         }
 
@@ -180,7 +180,7 @@ public class AlcanciasFragment extends Fragment {
                         cargarLista();
                         dialog.dismiss();
                     } catch (NumberFormatException e) {
-                        inputCantidad.setError("Formato inválido (ej: 5.00)");
+                        inputCantidad.setError(getString(R.string.formato_inv_lido_ej_5_00));
                     }
                 } else {
                     db.agregarAlcancia(nombre, 0.0, perfilActual, icono, sellada);

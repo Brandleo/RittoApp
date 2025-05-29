@@ -9,24 +9,24 @@
     <TextView android:id="@+id/txtNombreMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Meta"
+        android:text="@string/meta"
         android:textStyle="bold"/>
 
     <TextView android:id="@+id/txtMontoMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="La meta es: $100.00"/>
+        android:text="@string/la_meta_es_100_00"/>
 
     <TextView android:id="@+id/txtMontoFaltante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Te hacen falta: $45.00"/>
+        android:text="@string/te_hacen_falta_45_00"/>
     <ImageButton
         android:id="@+id/btnEliminarMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="Eliminar meta"
+        android:contentDescription="@string/eliminar_meta"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_gravity="end"/>
 

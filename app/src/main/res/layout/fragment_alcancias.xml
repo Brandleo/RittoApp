@@ -16,7 +16,7 @@
         android:layout_gravity="bottom|end"
     android:layout_margin="16dp"
     android:background="@drawable/circle_white_bg_green_stroke"
-    android:contentDescription="Agregar Alcancía"
+    android:contentDescription="@string/agregar_alcanc_a"
     android:focusable="true"
     android:scaleType="centerInside"
     android:src="@drawable/mas"

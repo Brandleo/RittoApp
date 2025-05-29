@@ -57,7 +57,7 @@ public class IngresoPin extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(this, "PIN incorrecto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.pin_incorrecto, Toast.LENGTH_SHORT).show();
             }
         });
     }

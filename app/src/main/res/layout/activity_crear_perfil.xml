@@ -18,7 +18,7 @@
         android:id="@+id/inputNombre"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:hint="Nombre del perfil"
+        android:hint="@string/nombre_del_perfil"
         android:inputType="textPersonName"
 
         />
@@ -26,7 +26,7 @@
         android:id="@+id/inputPin"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:hint="PIN (4 dígitos)"
+        android:hint="@string/pin_4_d_gitos"
         android:inputType="numberPassword"
         android:maxLength="4"
         android:layout_marginTop="12dp"/>
@@ -35,6 +35,6 @@
         android:id="@+id/btnGuardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Perfil"
+        android:text="@string/guardar_perfil"
         android:layout_marginTop="16dp"/>
 </LinearLayout>

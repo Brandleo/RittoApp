@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,7 +105,7 @@ public class HistorialAlcanciaFragment extends Fragment {
         List<DenominacionCantidad> desglose = db.obtenerDetallesDeMovimiento(movimiento.getId());
 
         if (desglose.isEmpty()) {
-            Toast.makeText(getContext(), "No hay detalles registrados para este movimiento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.no_hay_detalles_registrados_para_este_movimiento, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -114,10 +115,10 @@ public class HistorialAlcanciaFragment extends Fragment {
                     d.getDenominacion(), d.getCantidad(), d.getDenominacion() * d.getCantidad()));
         }
 
-        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                .setTitle("Desglose de Movimiento")
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.desglose_de_movimiento)
                 .setMessage(mensaje.toString())
-                .setPositiveButton("Cerrar", null)
+                .setPositiveButton(R.string.cerrarr, null)
                 .show();
     }
 
@@ -129,11 +130,18 @@ public class HistorialAlcanciaFragment extends Fragment {
         List<Movimiento> filtrados = new ArrayList<>();
         for (Movimiento m : movimientosOriginales) {
             boolean coincideFecha = fechaFiltro.isEmpty() || m.getFecha().startsWith(fechaFiltro);
-            boolean coincideTipo = tipoFiltro.equals("Todos") || m.getTipo().equalsIgnoreCase(tipoFiltro);
+            boolean coincideTipo = tipoFiltro.equals(getString(R.string.todos)) ||
+                    m.getTipo().equalsIgnoreCase(getLocalizedType(tipoFiltro));
             if (coincideFecha && coincideTipo) {
                 filtrados.add(m);
             }
         }
         adapter.actualizarLista(filtrados);
+    }
+
+    private String getLocalizedType(String displayedType) {
+        if (displayedType.equals(getString(R.string.deposito))) return getString(R.string.deposito);
+        if (displayedType.equals(getString(R.string.retiro))) return getString(R.string.retiros);
+        return displayedType;
     }
 }
