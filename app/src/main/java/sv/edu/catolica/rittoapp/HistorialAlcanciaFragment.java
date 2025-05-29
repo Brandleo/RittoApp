@@ -1,6 +1,7 @@
 package sv.edu.catolica.rittoapp;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -127,11 +128,12 @@ public class HistorialAlcanciaFragment extends Fragment {
         String fechaFiltro = inputFecha.getText().toString().trim();
         String tipoFiltro = spinnerTipo.getSelectedItem().toString();
 
+        String tipoNormalizado = getLocalizedType(tipoFiltro); // esto normaliza a 'deposito', 'retiro' o ''
+
         List<Movimiento> filtrados = new ArrayList<>();
         for (Movimiento m : movimientosOriginales) {
             boolean coincideFecha = fechaFiltro.isEmpty() || m.getFecha().startsWith(fechaFiltro);
-            boolean coincideTipo = tipoFiltro.equals(getString(R.string.todos)) ||
-                    m.getTipo().equalsIgnoreCase(getLocalizedType(tipoFiltro));
+            boolean coincideTipo = tipoNormalizado.equals("todos") || m.getTipo().equalsIgnoreCase(tipoNormalizado);
             if (coincideFecha && coincideTipo) {
                 filtrados.add(m);
             }
@@ -139,9 +141,25 @@ public class HistorialAlcanciaFragment extends Fragment {
         adapter.actualizarLista(filtrados);
     }
 
+
     private String getLocalizedType(String displayedType) {
-        if (displayedType.equals(getString(R.string.deposito))) return getString(R.string.deposito);
-        if (displayedType.equals(getString(R.string.retiro))) return getString(R.string.retiros);
-        return displayedType;
+        Context context = requireContext();
+        if (displayedType.equals(context.getString(R.string.depositoss)) ||  // usado como "Deposito"
+                displayedType.equalsIgnoreCase("Deposit") ||
+                displayedType.equalsIgnoreCase("Depósito") ||
+                displayedType.equalsIgnoreCase("Depose")) {
+            return "deposito";
+        }
+
+        if (displayedType.equals(context.getString(R.string.retiros)) ||
+                displayedType.equalsIgnoreCase("Retiro") ||
+                displayedType.equalsIgnoreCase("Withdrawal") ||
+                displayedType.equalsIgnoreCase("Saque") ||
+                displayedType.equalsIgnoreCase("Retirada")) {
+            return "retiro";
+        }
+
+        return "todos"; // si es igual a "Todos", "All", etc.
     }
+
 }
