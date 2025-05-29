@@ -97,9 +97,13 @@ public class AlcanciasFragment extends Fragment {
         });
 
         List<IconoItem> iconos = new ArrayList<>();
-        iconos.add(new IconoItem("cerdito", R.drawable.tunco));
-        iconos.add(new IconoItem("balon", R.drawable.balon));
         iconos.add(new IconoItem("barril", R.drawable.barril));
+        iconos.add(new IconoItem("huevo", R.drawable.huevo));
+        iconos.add(new IconoItem("cerdoblue", R.drawable.cerdoblue));
+        iconos.add(new IconoItem("cerdorosa", R.drawable.cerdorosa));
+        iconos.add(new IconoItem("bolaristal", R.drawable.bolaristal));
+
+
 
         final int[] index = {0};
         imgIcono.setImageResource(iconos.get(index[0]).getRecursoDrawable());
