@@ -51,5 +51,71 @@
             android:text="Cerrar sesión"
             android:backgroundTint="@android:color/holo_red_light"
             android:textColor="@android:color/white"/>
+
+        <LinearLayout
+            android:id="@+id/seccionNotificaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_dialogo_redondo"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notificaciones"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
+
+            <!-- Recordatorio diario -->
+            <Switch
+                android:id="@+id/switchRecordatorio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recordatorio diario para ahorrar" />
+
+            <Button
+                android:id="@+id/btnHoraRecordatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elegir hora recordatorio" />
+
+            <TextView
+                android:id="@+id/txtHoraRecordatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora: No establecida"
+                android:paddingBottom="12dp" />
+
+            <!-- Racha de ahorro -->
+            <Switch
+                android:id="@+id/switchRacha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notificación de racha de ahorro" />
+
+            <Button
+                android:id="@+id/btnHoraRacha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elegir hora de racha" />
+
+            <TextView
+                android:id="@+id/txtHoraRacha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora: No establecida" />
+
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
+
+
 </ScrollView>

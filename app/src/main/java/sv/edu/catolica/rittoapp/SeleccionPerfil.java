@@ -1,13 +1,24 @@
 package sv.edu.catolica.rittoapp;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import android.Manifest;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,7 +45,20 @@ public class SeleccionPerfil extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
+
         });
+// Verificar permiso de notificaciones (solo Android 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
+            }
+        }
+
+        crearCanalNotificaciones();
+
 
         recyclerPerfiles = findViewById(R.id.recyclerPerfiles);
         textoSinPerfiles = findViewById(R.id.textoSinPerfiles);
@@ -57,11 +81,13 @@ public class SeleccionPerfil extends AppCompatActivity {
 
 
     }
+
     public void crearperfil(View view) {
         Intent intent = new Intent(SeleccionPerfil.this, CrearPerfil.class);
         startActivity(intent);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -81,5 +107,30 @@ public class SeleccionPerfil extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1001) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permiso de notificaciones concedido", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Sin permiso para notificaciones", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    private void crearCanalNotificaciones() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "ritto_channel",
+                    "Canal RittoApp",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Canal para recordatorios y rachas");
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
+    }
 }
